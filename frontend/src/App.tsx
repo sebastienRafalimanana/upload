@@ -18,9 +18,7 @@ function App() {
     return (
         <Provider store={store}>
             <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
-                {loading ? 
-                ( <Loader />) : 
-                (<RouterProvider router={router} />)}
+                <RouterProvider router={router} />
             </MantineProvider>
         </Provider>
     )

@@ -45,18 +45,6 @@ const theme:MantineThemeColorsOverride = {
     },
     primaryColor:'cadet',
     primaryShade:7,
-    components:{
-        Button:{
-            sizes:{
-                xl:(theme:any)=>({
-                    root:{
-                        height:'3.25rem',
-                        padding:'0.5rem'
-                    }
-                })
-            },
-        }
-    }
 }
 
 export default theme;

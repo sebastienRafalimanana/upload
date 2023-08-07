@@ -1,7 +1,7 @@
 import { AppShell, Header, Footer,Divider,Group,Text,Stack, Box,em,createStyles,Center,Image,Flex} from '@mantine/core'
-import {IcOutlineFacebook} from "@/components"
 import React from 'react'
-import { Header as HeaderPortal } from '@/components'
+import { Header as HeaderPortal,IcOutlineFacebook } from '@/components'
+import {defaultSize} from "@/core"
 import { Link } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
 
@@ -13,6 +13,9 @@ const useStyles = createStyles((theme) => ({
             color: theme.colors.dark[0],
             textDecoration:"underline"
         },
+    },
+    footer:{
+        zIndex:-1
     }
 }))
 export const Root: React.FC = () => {
@@ -26,7 +29,7 @@ export const Root: React.FC = () => {
                 </Header>
             }
             footer={
-                <Footer height={150} bg="cadet">
+                <Footer height={defaultSize.footer} bg="cadet" className={classes.footer}>
                     <Stack h={"100%"} justify='space-between'>
                         <Flex px="5%" h={"100%"}  align='center' justify="space-between">
                             <Center>
