@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+      "baseUrl": ".",
+      "target": "es2017",
+      "module": "ESNext",
+      "lib": ["esnext","es5","es6"],
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "strict": true,
+      "strictNullChecks": true,
+      "resolveJsonModule": true,
+      "skipDefaultLibCheck": true,
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "outDir": "./dist",
+      "strictPropertyInitialization": false,
+      "sourceMap": true,
+      "paths": {
+        "@": ["./src/"],
+      },
+    },
+    "include": [
+        "./bin/index.ts",
+    ],
+    "ts-node": {
+        "esm": true,
+        "experimentalSpecifierResolution": "node",
+      "require": ["tsconfig-paths/register"]
+    }
+  }
