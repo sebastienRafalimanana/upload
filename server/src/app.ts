@@ -32,7 +32,7 @@ function configureDataBase(){
     /**Configuration base de donne */
     AppDataSource.initialize()
     .then(()=>{
-        console.log("data base Ok ....");
+        console.log("database Ok ....");
         
     })
     .catch((error)=>{
