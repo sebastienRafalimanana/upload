@@ -33,7 +33,7 @@ export const Root: React.FC = () => {
                 </Header>
             }
             footer={
-                <Footer height={defaultSize.footer} bg="cadet" className={classes.footer}>
+                <Footer height={"auto"} bg="cadet" className={classes.footer}>
                     <Stack h={"100%"} justify='space-between'>
                         <Flex px="5%" h={"100%"}  align='center' justify="space-between">
                             <Center>

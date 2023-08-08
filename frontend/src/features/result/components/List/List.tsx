@@ -8,6 +8,9 @@ import {
   createStyles,
   Container,
   Image,
+  MediaQuery,
+  Text,
+  Group
 } from "@mantine/core";
 import { Message } from "@/core";
 import {text_up} from "@/lib/animations"
@@ -53,31 +56,49 @@ export const List: React.FC<ResulProps> = ({result}) => {
           {Message.congratuation}
         </Title>
       </Box>
-      <Table
-        my={30}
-        verticalSpacing="md"
-        withBorder={false}
-        className={classes.table}
-      >
-        <thead>
-          <tr>
-            <th>Nom et prénom</th>
-            <th>Centre</th>
-            <th>Mention</th>
-            <th>Série</th>
-            <th>Numéro matricule</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{result.candidateName}</td>
-            <td>{result.centerName}</td>
-            <td>{result.mention}</td>
-            <td>{result.labelOption}</td>
-            <td>{result.candidateMatricule}</td>
-          </tr>
-        </tbody>
-      </Table>
+      <MediaQuery smallerThan={"sm"} styles={{ display: 'none' }}>
+        <Table
+          my={30}
+          verticalSpacing="md"
+          withBorder={false}
+          className={classes.table}
+        >
+          <thead>
+            <tr>
+              <th>Nom et prénom</th>
+              <th>Centre</th>
+              <th>Mention</th>
+              <th>Série</th>
+              <th>Numéro matricule</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{result.candidateName}</td>
+              <td>{result.centerName}</td>
+              <td>{result.mention}</td>
+              <td>{result.labelOption}</td>
+              <td>{result.candidateMatricule}</td>
+            </tr>
+          </tbody>
+        </Table>
+      </MediaQuery>
+      <MediaQuery largerThan="sm" styles={{ display: 'none' }}>
+          <Group p={15} > 
+            <Box>
+              <Text size={18} weight={"bold"}>
+                {result.centerName}
+              </Text>
+              <Text size={18} weight={"bold"}>
+                {"Série "+ result.labelOption}
+              </Text>
+            </Box>
+            <Box>
+              <Text size={18}>{`(${result.candidateMatricule}) `+result.candidateName}</Text>
+            </Box>
+          </Group>
+          
+      </MediaQuery>
       <Image
         fit="contain"
         className={classes.confenti}

@@ -22,8 +22,6 @@ export class ExamRoute {
      
     if (payload !="") {
       let result = await this.examService.searchByMatricule(payload)
-      console.log(result);
-      
       return res.json(result)
     }
 

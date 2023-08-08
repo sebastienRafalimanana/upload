@@ -16,7 +16,7 @@ const useStyles = createStyles((theme) => ({
     background: "white",
     borderRadius:"7px",
     position: "relative",
-    animation: `${text_up} 1s forwards`
+    animation: `${text_up} 0.7s forwards`
   },
   head: {
     borderRadius: "5px",
@@ -40,4 +40,18 @@ export const ListNotFound: React.FC = () => {
   );
 };
 
+export const NoMatricule:React.FC = () => {
+  const { classes } = useStyles();
+  return (
+    <Container py={15} className={classes.container}>
+        <Box mt={30} py={15} className={classes.head}>
+        <Title order={2} color="dark" align="center">
+          {Message.noMatricule}
+        </Title>
+      </Box>
+    </Container>
+  );
+};
+
+NoMatricule.displayName ="No matricule message"
 ListNotFound.displayName = "List du non trouvé"

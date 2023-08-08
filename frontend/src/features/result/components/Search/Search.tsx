@@ -1,9 +1,9 @@
 import React from 'react'
-import { createStyles, Stack, Image, Title, Input,Button, Grid, Box} from '@mantine/core';
+import { createStyles,MediaQuery, Stack, Image, Title, Input,Button, Grid, Box} from '@mantine/core';
 import {MagnifyingGlass} from "@phosphor-icons/react"
 import {text_up} from "@/lib/animations"
-import { useState,useEffect } from 'react';
-import {List as ResultList} from "@/features"
+import { useState } from 'react';
+import {List as ResultList,NoMatricule} from "@/features"
 import { useSearchQuery } from "../../resultApi";
 import {IResult} from "../../types"
 
@@ -38,7 +38,13 @@ const useStyles = createStyles((theme) => ({
         transition:"all .3s ease-in-out",
         '&:hover': {
             backgroundColor: theme.colors.mint[5],
-            width:"175px"
+            width:"175px",
+        },
+        [theme.fn.smallerThan('sm')]: {
+            '&:hover': {
+                backgroundColor: theme.colors.mint[5],
+                width:"100%"
+            },
         },
     },
     input_search:{
@@ -54,12 +60,13 @@ export const Search: React.FC = () =>  {
     const [result,setResult] = useState(false)
     const [getSearch, setSearch] = useState(""||String)
     const [updateSearch, setUpdateSearch] = useState("")
-    
-    const handleSearch = async()=>{
-        console.log("search...");
-        console.log(getSearch);
-        console.log(updateSearch);
 
+    const handleKeyEnter = async(event:any)=>{
+        if (event.key === 'Enter') {
+            await handleSearch()
+        }
+    }
+    const handleSearch = async()=>{
         if (getSearch.trim() !== '') {
             setUpdateSearch(getSearch)
             if (data?.candidateMatricule) {
@@ -73,34 +80,57 @@ export const Search: React.FC = () =>  {
   return (
     <>
     <Box className={classes.banner}>
-        
         <Stack className={classes.content}>
            <Title w={135} pl={15} color='white' bg={"blue"}>2023</Title>
            <Title order={2} color='white'>Résultats des examens en cours </Title>
+           <MediaQuery smallerThan={"sm"} styles={{ display: 'none' }}>
+            <Grid gutter={5}>
+                <Grid.Col span={8}>
+                <Input px={-35} className={classes.input_search}
+                onChange={(event)=>{setSearch(event.target.value)}}
+                onKeyDown={handleKeyEnter}
+                icon={<MagnifyingGlass weight='bold' color="black" ></MagnifyingGlass>}
+                    placeholder='Rechercher votre matricule'
+                    styles={(theme) => ({
+                        input: {
+                            height:'50px',
+                            borderRadius:"7px 0px 0px 7px",
+                            border:"none"
+                        },
+                })}></Input>
+                </Grid.Col>
+                <Grid.Col span={'content'}>
+                <Button className={classes.btn_search} onClick={handleSearch}>Rechercher</Button>
+                </Grid.Col>
+            </Grid>
+           </MediaQuery>
+           <MediaQuery largerThan={"sm"} styles={{ display: 'none' }}>
            <Grid gutter={5}>
-            <Grid.Col span={8}>
-            <Input px={-35} className={classes.input_search}
-            onChange={(event)=>{setSearch(event.target.value)}}
-            icon={<MagnifyingGlass weight='bold' color="black" ></MagnifyingGlass>}
-                placeholder='Rechercher votre matricule'
-                styles={(theme) => ({
-                    input: {
-                        height:'50px',
-                        borderRadius:"7px 0px 0px 7px",
-                        border:"none"
-                    },
-              })}></Input>
-            </Grid.Col>
-            <Grid.Col span={'content'}>
-              <Button className={classes.btn_search} onClick={handleSearch}>Rechercher</Button>
-            </Grid.Col>
-           </Grid>
+                <Grid.Col span={10}>
+                <Input px={-35} className={classes.input_search}
+                onChange={(event)=>{setSearch(event.target.value)}}
+                onKeyDown={handleKeyEnter}
+                    placeholder='Rechercher votre matricule'
+                    styles={(theme) => ({
+                        input: {
+                            height:'50px',
+                            borderRadius:"7px 0px 0px 7px",
+                            border:"none"
+                        },
+                })}></Input>
+                </Grid.Col>
+                <Grid.Col span={2}>
+                <Button className={classes.btn_search}
+                    onClick={handleSearch}><MagnifyingGlass weight='bold' color="white" size={26} ></MagnifyingGlass></Button>
+                </Grid.Col>
+            </Grid>
+           </MediaQuery>
         </Stack>
         <Image height={300} className={classes.background} src="/book_bg.png"></Image>
     </Box>
     <h1></h1>
     {result && <ResultList result={data}></ResultList>}
-    {!result && isSuccess && <h1></h1>}
+    {!result && isSuccess && <NoMatricule></NoMatricule>}
     </>
   )
 }
