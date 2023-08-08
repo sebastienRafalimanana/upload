@@ -1,6 +1,5 @@
 import { raw } from 'mysql2';
 import { examRepository } from '../../data/repository/index';
-import {SearchDto} from "../dto"
 
 export class ExamService{
 

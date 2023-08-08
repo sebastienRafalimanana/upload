@@ -5,14 +5,11 @@ export const baseQuery = (baseUrl: string) =>
     fetchBaseQuery({
         baseUrl: baseUrl,
         prepareHeaders: (headers, { getState }) => {
-            const token = (getState() as RootState).auth.token
-
-            if (token) {
-                headers.set('authentication', `Bearer ${token}`)
-            }
+            /**configuration x-secure-app   */
+            headers.set('x-secure-app', `${import.meta.env.VITE_SERVER_SECURE_KEY}`)
             return headers
         },
     })
 
 export const baseQueryWithRetry = (baseUrl: string) =>
-    retry(baseQuery(baseUrl), { maxRetries: 6 })
+    retry(baseQuery(baseUrl), { maxRetries: 1 })

@@ -2,9 +2,10 @@ import React from 'react'
 import { createStyles, Stack, Image, Title, Input,Button, Grid, Box} from '@mantine/core';
 import {MagnifyingGlass} from "@phosphor-icons/react"
 import {text_up} from "@/lib/animations"
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import {List as ResultList} from "@/features"
-
+import { useSearchQuery } from "../../resultApi";
+import {IResult} from "../../types"
 
 const useStyles = createStyles((theme) => ({
     banner:{
@@ -48,28 +49,40 @@ const useStyles = createStyles((theme) => ({
 
 
 export const Search: React.FC = () =>  {
-
+    const resultData:IResult={}
     const { classes } = useStyles();
     const [result,setResult] = useState(false)
-    const [getInput, setInput] = useState(""||String)
-    const handleSearch = ()=>{
-        console.log(getInput);
-        setResult(true)
-
-    }
+    const [getSearch, setSearch] = useState(""||String)
+    const [updateSearch, setUpdateSearch] = useState("")
     
+    const handleSearch = async()=>{
+        console.log("search...");
+        console.log(getSearch);
+        console.log(updateSearch);
+
+        if (getSearch.trim() !== '') {
+            setUpdateSearch(getSearch)
+            if (data?.candidateMatricule) {
+               return setResult(true)
+            }
+        }
+        setResult(false)
+    }
+    const {data=resultData,isSuccess,} = useSearchQuery(updateSearch)
+  
   return (
     <>
     <Box className={classes.banner}>
+        
         <Stack className={classes.content}>
            <Title w={135} pl={15} color='white' bg={"blue"}>2023</Title>
            <Title order={2} color='white'>Résultats des examens en cours </Title>
            <Grid gutter={5}>
             <Grid.Col span={8}>
             <Input px={-35} className={classes.input_search}
-            onChange={(event)=>{setInput(event.target.value)}}
+            onChange={(event)=>{setSearch(event.target.value)}}
             icon={<MagnifyingGlass weight='bold' color="black" ></MagnifyingGlass>}
-                placeholder='Rechercher votre matricule ou nom ou prénom'
+                placeholder='Rechercher votre matricule'
                 styles={(theme) => ({
                     input: {
                         height:'50px',
@@ -85,7 +98,9 @@ export const Search: React.FC = () =>  {
         </Stack>
         <Image height={300} className={classes.background} src="/book_bg.png"></Image>
     </Box>
-    {result && <ResultList></ResultList>}
+    <h1></h1>
+    {result && <ResultList result={data}></ResultList>}
+    {!result && isSuccess && <h1></h1>}
     </>
   )
 }

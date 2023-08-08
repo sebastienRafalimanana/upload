@@ -1,4 +1,4 @@
-import { AppShell, Header, Footer,Divider,Group,Text,Stack, Box,em,createStyles,Center,Image,Flex} from '@mantine/core'
+import { AppShell, Header, Footer,Divider,getBreakpointValue,Group,Text,Stack, Box,em,createStyles,Center,Image,Flex} from '@mantine/core'
 import React from 'react'
 import { Header as HeaderPortal,IcOutlineFacebook } from '@/components'
 import {defaultSize} from "@/core"
@@ -15,7 +15,11 @@ const useStyles = createStyles((theme) => ({
         },
     },
     footer:{
-        zIndex:-1
+        zIndex:-1,
+        [theme.fn.smallerThan('md')]: {
+           
+          },
+
     }
 }))
 export const Root: React.FC = () => {

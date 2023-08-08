@@ -1,4 +1,6 @@
 import React from "react";
+import {IResult} from "../../types"
+import {ListNotFound} from "./ListNotFound"
 import {
   Box,
   Title,
@@ -7,14 +9,15 @@ import {
   Container,
   Image,
 } from "@mantine/core";
-import { defaultSize } from "@/core";
 import { Message } from "@/core";
+import {text_up} from "@/lib/animations"
 
 const useStyles = createStyles((theme) => ({
   container: {
     background: "white",
     borderRadius:"7px",
     position: "relative",
+    animation: `${text_up} 1s forwards`,
   },
   head: {
     borderRadius: "5px",
@@ -30,9 +33,20 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-export const List: React.FC = () => {
+interface ResulProps{
+  result:IResult
+}
+
+export const List: React.FC<ResulProps> = ({result}) => {
   const { classes } = useStyles();
+  if(result?.status == false){
+    return(
+      <ListNotFound></ListNotFound>
+    )
+  }
+  else if (result?.status){
   return (
+
     <Container py={15} className={classes.container}>
       <Box mt={30} py={15} bg="green" className={classes.head}>
         <Title order={2} color="white" align="center">
@@ -56,18 +70,11 @@ export const List: React.FC = () => {
         </thead>
         <tbody>
           <tr>
-            <td>{"Rafalimanana Jean Sébastien"}</td>
-            <td>{"Bien"}</td>
-            <td>{"Toliara I"}</td>
-            <td>{"A1"}</td>
-            <td>{"41534"}</td>
-          </tr>
-          <tr>
-            <td>{"Rafalimanana Jean Sébastien"}</td>
-            <td>{"Bien"}</td>
-            <td>{"Toliara I"}</td>
-            <td>{"A1"}</td>
-            <td>{"41534"}</td>
+            <td>{result.candidateName}</td>
+            <td>{result.centerName}</td>
+            <td>{result.mention}</td>
+            <td>{result.labelOption}</td>
+            <td>{result.candidateMatricule}</td>
           </tr>
         </tbody>
       </Table>
@@ -77,5 +84,16 @@ export const List: React.FC = () => {
         src={"/confeti.gif"}
       ></Image>
     </Container>
-  );
+  );}
+  else{
+    <Container py={15} className={classes.container}>
+        <Box mt={30} py={15} className={classes.head}>
+        <Title order={2} color="dark" align="center">
+          {Message.noMatricule}
+        </Title>
+      </Box>
+    </Container>
+  }
 };
+
+List.displayName ="List resultat"

@@ -19,6 +19,7 @@ export class ExamRoute {
 
   private async searchResult(req: Request, res: Response) {
      let payload = req.body.payload
+     
     if (payload !="") {
       let result = await this.examService.searchByMatricule(payload)
       console.log(result);

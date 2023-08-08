@@ -1,1 +1,1 @@
-export * from './vaccine'
+export * from './api'
