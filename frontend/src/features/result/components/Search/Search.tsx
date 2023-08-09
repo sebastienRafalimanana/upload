@@ -15,7 +15,10 @@ const useStyles = createStyles((theme) => ({
         margin:"-16px -16px",
         padding:' 2.5em 10%',
         boxShadow:`5px 5px 10px ${theme.colors.dark[0]}`,
-        zIndex:111
+        zIndex:111,
+        [theme.fn.smallerThan('sm')]: {
+            boxShadow:"none"
+        }
     },
     background:{
         position:"absolute",

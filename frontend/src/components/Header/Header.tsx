@@ -8,7 +8,7 @@ export const Header: React.FC = () => {
   return (
     <Flex  align='center' justify="space-between">
       <Center>
-        <Image height={80} src={"/logo_mesupres.png"}></Image>
+        <Image height={80} src={"/Logo_UnivToliara.png"}></Image>
       </Center>
       <Group h={40}>
         <Text weight={"bold"} size={em(18)}>FAQ</Text>

@@ -4,8 +4,8 @@ import { Space,Box, createStyles } from '@mantine/core'
 
 const useStyles = createStyles((theme) => ({
     main:{
-        height:"auto",
-        zIndex:11
+        zIndex:11,
+      
     }
 }))
 

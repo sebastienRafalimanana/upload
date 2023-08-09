@@ -15,8 +15,9 @@ const useStyles = createStyles((theme) => ({
         },
     },
     footer:{
-        zIndex:-1,
-        [theme.fn.smallerThan('md')]: {
+         zIndex:-1,
+         marginTop:defaultSize.footer,
+        [theme.fn.smallerThan('sm')]: {
            
           },
 
@@ -40,7 +41,7 @@ export const Root: React.FC = () => {
                                 <Image height={80} src={"/uf_toliara.png"}></Image>
                             </Center>
                             <Group h={40}>
-                                <Text weight={"bold"} color='white' size={em(18)}>FAQ</Text>
+                                {/* <Text weight={"bold"} color='white' size={em(18)}>FAQ</Text> */}
                                 <IcOutlineFacebook color='white' fontSize={20}></IcOutlineFacebook>
                             </Group>
                         </Flex>
